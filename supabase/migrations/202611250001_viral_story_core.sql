@@ -127,7 +127,7 @@ create table claims (
 );
 
 create table scenes (
-  id uuid primary_key default gen_random_uuid(),
+  id uuid primary key default gen_random_uuid(),
   story_id uuid not null references stories(id) on delete cascade,
   story_version_id uuid references story_versions(id) on delete set null,
   position integer not null check (position >= 0),
