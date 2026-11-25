@@ -1,45 +1,23 @@
-import Link from "next/link";
+import { PublicFooter, PublicHeader } from "@/components/public-shell";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+
+const featured = [
+  { title: "The last matatu to Kariakoo", language: "Kiswahili", category: "MYSTERY", duration: "0:42", color: "from-[#9c4a26] to-[#271b21]", shape: "A city at dusk. One last ride. A message no one expected." },
+  { title: "A voice note from tomorrow", language: "English", category: "WHAT IF", duration: "0:36", color: "from-[#41486b] to-[#181a26]", shape: "At 11:59, her phone received a message from the next day." },
+  { title: "Mwezi juu ya bahari", language: "Kiswahili", category: "LOVE & LIFE", duration: "0:51", color: "from-[#426159] to-[#1a2425]", shape: "Barua ya zamani. Siri ambayo haikuwahi kuondoka." },
+];
 
 export default function HomePage() {
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-6 sm:px-8 sm:py-10">
-      <header className="flex items-center justify-between border-b border-white/10 pb-5">
-        <p className="text-sm font-bold tracking-[0.18em] text-paper">
-          VIRALSTORY <span className="text-ember">AI</span>
-        </p>
-        <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-muted">
-          EN · SW
-        </span>
-      </header>
-
-      <section className="flex flex-1 flex-col justify-center py-16 sm:py-24">
-        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-ember">
-          Stories for the scroll
-        </p>
-        <h1 className="max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight text-paper sm:text-7xl">
-          Big stories.
-          <br />
-          <span className="text-muted">Short moments.</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg">
-          Kiswahili na Kiingereza. A new home for short stories worth sharing.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-4">
-          <span className="rounded-full bg-ember px-5 py-3 text-sm font-semibold text-ink">
-            Coming soon
-          </span>
-          <Link
-            className="rounded-full border border-white/15 px-5 py-3 text-sm font-medium text-paper transition-colors hover:border-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember"
-            href="/health"
-          >
-            Check app status
-          </Link>
-        </div>
+  return <>
+    <PublicHeader />
+    <main className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+      <section className="grid min-h-[72vh] items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="py-4"><p className="mb-5 text-xs font-semibold uppercase tracking-[0.24em] text-ember">Stories for the scroll</p><h1 className="max-w-3xl text-5xl font-semibold leading-[1.04] tracking-tight text-paper sm:text-7xl">Big stories.<br /><span className="text-muted">Short moments.</span></h1><p className="mt-6 max-w-lg text-base leading-7 text-muted sm:text-lg">Kiswahili na Kiingereza. Short stories made to stay with you long after the scroll.</p><a href="#stories" className="mt-8 inline-flex min-h-12 items-center justify-center rounded-md bg-ember px-5 text-sm font-semibold text-background transition-colors hover:bg-[#ff8550] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember">Explore stories <span aria-hidden="true" className="ml-2">↓</span></a><p className="mt-4 text-xs text-muted">A growing collection · English &amp; Kiswahili</p></div>
+        <div className="relative mx-auto w-full max-w-[390px] lg:ml-auto"><div aria-label="Preview of vertical story video" role="img" className="relative aspect-[9/14] overflow-hidden rounded-lg border border-white/10 bg-gradient-to-br from-[#4d3025] via-[#201d20] to-[#11100f] shadow-card"><div className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_30%,rgba(255,106,42,.35),transparent_38%)]" /><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent p-6 pb-8"><Badge variant="accent">STORY PREVIEW</Badge><h2 className="mt-4 max-w-xs text-2xl font-semibold leading-tight text-white">The city kept one secret for her.</h2><p className="mt-2 text-sm text-white/70">A short story · 0:42</p></div><span className="absolute right-4 top-4 rounded-pill border border-white/20 bg-black/30 px-3 py-1 text-[10px] font-medium tracking-wide text-white">MOCK ARTWORK</span></div><p className="mt-3 text-center text-xs text-muted">Visual placeholder — no third-party media</p></div>
       </section>
-
-      <footer className="border-t border-white/10 pt-5 text-xs text-muted">
-        Stories in English and Kiswahili.
-      </footer>
+      <section id="stories" className="border-t border-white/[0.08] py-12 sm:py-16"><div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-semibold uppercase tracking-[0.2em] text-ember">A first look</p><h2 className="mt-2 text-2xl font-semibold text-paper sm:text-3xl">Stories to get lost in</h2></div><p className="max-w-md text-sm leading-6 text-muted">Original story concepts in English and Kiswahili. Preview content only—no videos are published yet.</p></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featured.map((story) => <Card key={story.title} padding="sm" className="group overflow-hidden transition-colors hover:border-white/20"><div className={`relative aspect-[9/11] overflow-hidden rounded-md bg-gradient-to-br ${story.color}`}><div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_30%,rgba(255,255,255,.12),transparent_45%)]"/><span className="absolute left-3 top-3 rounded-pill border border-white/15 bg-black/25 px-2.5 py-1 text-[10px] font-medium text-white">{story.category}</span><span className="absolute bottom-3 right-3 rounded bg-black/50 px-2 py-1 text-xs text-white">{story.duration}</span><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-4 pt-16"><h3 className="text-lg font-semibold text-white">{story.title}</h3><p className="mt-1 text-xs text-white/70">{story.language}</p></div></div><p className="px-1 pb-1 pt-3 text-sm leading-6 text-muted">{story.shape}</p></Card>)}</div></section>
     </main>
-  );
+    <PublicFooter />
+  </>;
 }
