@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
+import { aiGenerationInputSchema } from "@/server/ai/types";
 import { requireAdmin } from "@/server/supabase/server";
 import { generateValidatedStory } from "@/server/ai/story-service";
-
-const generateSchema = z.object({ trendTitle: z.string().min(3), researchNotes: z.string(), verifiedClaims: z.array(z.string()), targetAudience: z.string(), category: z.string(), tone: z.string(), targetDuration: z.number().int().min(15).max(120), approvedTrend: z.literal(true) });
 
 export async function POST(request: Request) {
   try {
     await requireAdmin();
-    const input = generateSchema.parse(await request.json());
-    const output = await generateValidatedStory(input);
-    return NextResponse.json({ ok: true, status: "needs-human-review", output });
+    const parsed = aiGenerationInputSchema.safeParse(await request.json());
+    if (!parsed.success) return NextResponse.json({ error: "Invalid generation request.", details: parsed.error.flatten() }, { status: 400 });
+    const result = await generateValidatedStory(parsed.data);
+    return NextResponse.json({ ok: true, ...result }, { status: result.status === "needs-more-evidence" ? 422 : 200 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Generation failed";
     return NextResponse.json({ error: message }, { status: message === "Unauthorized" ? 401 : message === "Forbidden" ? 403 : 422 });
